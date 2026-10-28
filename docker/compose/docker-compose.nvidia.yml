@@ -21,10 +21,9 @@ services:
       VISION: ${VISION:-off}                 # on: the model reads pictures (about 0.9 GB more to download)
       TUNE: ${TUNE:-skip}                    # quick: up to about 20 minutes, once, then kept
       API_KEY: ${API_KEY:-}                  # empty: made on the first start; docker exec strata strata launch --show-key
-      # GPUS: "0,1"                          # several cards: which ones
+      GPUS: "0,1,2,3"                        # several cards: which ones
     volumes:
-      - strata-data:/data                    # the model, presets, tuning, the key. Survives updates of the image.
-      # - /srv/gguf/IQ3_XXS:/models:ro       # GGUF files you already have (then also set MODEL_PATH: /models)
+      - /opt/vllm_models/gguf/production/strata:/data     # Local paths for model, presets, tuning, key. Survives image updates.
     deploy:
       resources:
         reservations:
@@ -37,5 +36,3 @@ services:
       memlock: { soft: -1, hard: -1 }        # the engine pins tens of GB of RAM
     shm_size: 2gb
     stop_grace_period: 2m                    # the model drains and unloads on docker stop
-volumes:
-  strata-data:
