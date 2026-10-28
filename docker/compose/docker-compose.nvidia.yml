@@ -20,6 +20,8 @@ services:
       PARALLEL: ${PARALLEL:-}                # empty: fit to the card
       VISION: ${VISION:-off}                 # on: the model reads pictures (about 0.9 GB more to download)
       TUNE: ${TUNE:-skip}                    # quick: up to about 20 minutes, once, then kept
+      RETUNE: ${RETUNE:-0}                   # in case of changes it is best to retune - default 0=OFF
+      KV: ${KV:-int8}                        # Conversation KV-cache precision - default int8
       API_KEY: ${API_KEY:-}                  # empty: made on the first start; docker exec strata strata launch --show-key
       GPUS: "${GPUS:-all}"                   # several cards: which ones
       STRATA_SET: ${STRATA_SET:-}            # Strata settings flags
