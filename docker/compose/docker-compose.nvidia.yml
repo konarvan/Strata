@@ -21,7 +21,8 @@ services:
       VISION: ${VISION:-off}                 # on: the model reads pictures (about 0.9 GB more to download)
       TUNE: ${TUNE:-skip}                    # quick: up to about 20 minutes, once, then kept
       API_KEY: ${API_KEY:-}                  # empty: made on the first start; docker exec strata strata launch --show-key
-      GPUS: "0,1,2,3"                        # several cards: which ones
+      GPUS: "${GPUS:-all}"                   # several cards: which ones
+      STRATA_SET: ${STRATA_SET:-}            # Strata settings flags
     volumes:
       - /opt/vllm_models/gguf/production/strata:/data     # Local paths for model, presets, tuning, key. Survives image updates.
     deploy:
